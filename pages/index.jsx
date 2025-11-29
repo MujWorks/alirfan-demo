@@ -244,7 +244,7 @@ export default function Home() {
                 "True education extends beyond books — it nurtures the soul, builds character, and prepares leaders for tomorrow."
               </p>
               <p style={{ fontSize:'1.8rem', color:'#d4af37', marginTop:'3rem', fontWeight:'bold' }}>
-                — Janab Secretary Saheb
+                — Secretary
               </p>
             </div>
           </div>
