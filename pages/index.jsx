@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function Home() {
- 
-  // ... rest of the code exactly as I gave you last time
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedFeature, setExpandedFeature] = useState(null);
 
