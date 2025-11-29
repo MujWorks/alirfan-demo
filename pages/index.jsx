@@ -33,7 +33,6 @@ export default function Home() {
         .menu-item:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212,175,55,0.5); }
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .gradient-bg { background: linear-gradient(to bottom, #0f172a, #065f46); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
 
