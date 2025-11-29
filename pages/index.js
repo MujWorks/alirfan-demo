@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedFeature, setExpandedFeature] = useState(null);
+
+  const toggleFeature = (index) => {
+    setExpandedFeature(expandedFeature === index ? null : index);
+  };
 
   const features = [
     { title: "Academic Facilities", bullets: ["Smart Class Rooms", "Laboratories"] },
@@ -22,10 +23,6 @@ export default function Home() {
     { quote: "Education & Knowledge are rightly called the 'Third Eye' of Human Being. It gives him an insight into all affairs of life, removes all the darkness and spreads illumination...", author: "Mohammad Khalid, Principal" }
   ];
 
-  const toggleFeature = (index) => {
-    setExpandedFeature(expandedFeature === index ? null : index);
-  };
-
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-900 text-white overflow-x-hidden">
       {/* Luxury Fixed Menu */}
@@ -35,64 +32,45 @@ export default function Home() {
           <ul className="hidden md:flex space-x-8">
             {['Home', 'About', 'Academics', 'Facilities', 'Admissions', 'Contact'].map((item) => (
               <li key={item}>
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
+                <button
                   className="text-white hover:text-amber-500 transition text-lg font-medium relative group"
                 >
                   {item}
-                  <motion.div
-                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all"
-                  />
-                </motion.button>
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all duration-300" />
+                </button>
               </li>
             ))}
           </ul>
-          <motion.button
-            whileTap={{ scale: 0.95 }}
+          <button
             className="md:hidden text-white"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <i className="fas fa-bars text-2xl"></i>
-          </motion.button>
+          </button>
         </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-900/95 z-40 flex flex-col items-center justify-center md:hidden"
-            onClick={() => setMenuOpen(false)}
-          >
-            <ul className="space-y-8 text-3xl font-bold text-amber-500">
-              {['Home', 'About', 'Academics', 'Facilities', 'Admissions', 'Contact'].map((item) => (
-                <li key={item}>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="text-white hover:text-amber-500"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {item}
-                  </motion.button>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {menuOpen && (
+        <div className="fixed inset-0 bg-slate-900/95 z-40 flex flex-col items-center justify-center md:hidden" onClick={() => setMenuOpen(false)}>
+          <ul className="space-y-8 text-3xl font-bold text-amber-500">
+            {['Home', 'About', 'Academics', 'Facilities', 'Admissions', 'Contact'].map((item) => (
+              <li key={item}>
+                <button
+                  className="text-white hover:text-amber-500"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Hero */}
       <section className="min-h-screen flex items-center justify-center text-center px-6 relative z-10 pt-20">
-        <motion.div
-          className="max-w-6xl"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-        >
+        <div className="max-w-6xl">
           <h1 className="text-7xl md:text-9xl font-black text-white leading-tight mb-6">
             ALIRFAN RESIDENTIAL SCHOOL
           </h1>
@@ -105,17 +83,12 @@ export default function Home() {
           <a href="#enquiry" className="bg-amber-500 hover:bg-amber-400 text-black px-16 py-6 rounded-full text-2xl font-bold transition shadow-2xl">
             Discover More
           </a>
-        </motion.div>
+        </div>
       </section>
 
       {/* Leadership Insights */}
       <section className="py-24 px-6 relative z-10">
-        <motion.div
-          className="container mx-auto max-w-6xl glass rounded-3xl p-12 md:p-16 shadow-2xl"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
+        <div className="container mx-auto max-w-6xl glass rounded-3xl p-12 md:p-16 shadow-2xl">
           <h2 className="text-5xl md:text-6xl font-bold text-amber-500 text-center mb-12">
             Leadership Insights
           </h2>
@@ -131,57 +104,36 @@ export default function Home() {
               <p className="text-2xl font-semibold text-amber-500">— Janab Secretary Saheb</p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* President's Note */}
       <section className="py-24 px-6 bg-slate-900/50 relative z-10">
-        <motion.div
-          className="container mx-auto max-w-5xl text-center"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
+        <div className="container mx-auto max-w-5xl text-center">
           <h2 className="text-5xl md:text-6xl font-bold text-amber-500 mb-12">President's Note</h2>
           <div className="space-y-8">
             {presidentNotes.map((note, i) => (
-              <motion.div
-                key={i}
-                className="glass rounded-3xl p-8"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.2 }}
-              >
+              <div key={i} className="glass rounded-3xl p-8">
                 <p className="text-xl italic text-gray-200 leading-relaxed">
                   {note.quote}
                 </p>
                 <p className="mt-6 text-2xl font-semibold text-amber-500">{note.author}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
           <a href="PresidentNote.aspx" className="text-amber-500 hover:underline text-xl mt-8 inline-block">Read Full Note →</a>
-        </motion.div>
+        </div>
       </section>
 
       {/* Key Features */}
       <section className="py-24 px-6 relative z-10">
-        <motion.h2
-          className="text-5xl md:text-7xl font-bold text-center text-amber-500 mb-20"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          Why Choose Al-Irfan?
-        </motion.h2>
+        <h2 className="text-5xl md:text-7xl font-bold text-center text-amber-500 mb-20">Why Choose Al-Irfan?</h2>
         <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {features.map((feature, i) => (
-            <motion.div
+            <div
               key={i}
               className="glass p-8 rounded-3xl cursor-pointer hover:scale-105 transition"
               onClick={() => toggleFeature(i)}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
             >
               <h3 className="text-2xl font-bold text-amber-500 mb-4">{feature.title}</h3>
               <ul className="text-gray-300 space-y-2">
@@ -192,19 +144,14 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
 
       {/* Contact */}
       <section id="enquiry" className="py-24 px-6 bg-emerald-900/50 relative z-10">
-        <motion.div
-          className="container mx-auto max-w-6xl text-center"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
+        <div className="container mx-auto max-w-6xl text-center">
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-12">Ready to Join Al-Irfan?</h2>
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="glass rounded-3xl p-8">
@@ -222,7 +169,7 @@ export default function Home() {
           <a href="enquiry.aspx" className="bg-amber-500 hover:bg-amber-400 text-black px-20 py-6 rounded-full text-2xl font-bold transition shadow-2xl">
             Submit Enquiry Now
           </a>
-        </motion.div>
+        </div>
       </section>
 
       <footer className="py-12 px-6 text-center bg-slate-900/50">
