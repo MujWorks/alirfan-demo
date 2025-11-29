@@ -34,9 +34,7 @@ export default function Home() {
           <ul className="hidden md:flex space-x-8">
             {['Home', 'About', 'Academics', 'Facilities', 'Admissions', 'Contact'].map((item) => (
               <li key={item}>
-                <button
-                  className="text-white hover:text-amber-500 transition text-lg font-medium relative group"
-                >
+                <button className="text-white hover:text-amber-500 transition text-lg font-medium relative group">
                   {item}
                   <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all duration-300" />
                 </button>
@@ -58,10 +56,7 @@ export default function Home() {
           <ul className="space-y-8 text-3xl font-bold text-amber-500">
             {['Home', 'About', 'Academics', 'Facilities', 'Admissions', 'Contact'].map((item) => (
               <li key={item}>
-                <button
-                  className="text-white hover:text-amber-500"
-                  onClick={() => setMenuOpen(false)}
-                >
+                <button className="text-white hover:text-amber-500" onClick={() => setMenuOpen(false)}>
                   {item}
                 </button>
               </li>
