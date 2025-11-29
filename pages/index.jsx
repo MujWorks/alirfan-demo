@@ -203,7 +203,7 @@ export default function Home() {
 
       {/* HERO - UNTOUCHED & PERFECT */}
       <section style={{ height:'100vh', position:'relative', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center' }}>
-        <div style={{ position:'absolute', inset:0, overflow:'hidden' }}>
+        <div style={{ position:'relative', inset:0, overflow:'hidden' }}>
           <iframe
             src="https://www.youtube.com/embed/AhGFGa-3FU8?autoplay=1&mute=1&loop=1&playlist=AhGFGa-3FU8&controls=0&modestbranding=1&rel=0"
             style={{ width:'100%', height:'100%', border:'none' }}
