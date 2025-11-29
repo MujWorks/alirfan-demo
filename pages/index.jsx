@@ -3,10 +3,13 @@ import { useState } from 'react';
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedFeature, setExpandedFeature] = useState(null);
+  const [currentNote, setCurrentNote] = useState(0);
 
   const toggleFeature = (index) => {
     setExpandedFeature(expandedFeature === index ? null : index);
   };
+
+  const nextNote = () => setCurrentNote((prev) => (prev + 1) % presidentNotes.length);
 
   const features = [
     { title: "Academic Facilities", bullets: ["Smart Class Rooms", "Laboratories"] },
@@ -26,7 +29,7 @@ export default function Home() {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #0f172a, #065f46)', color: 'white', overflowX: 'hidden' }}>
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-900 text-white overflow-x-hidden">
       <style jsx global>{`
         .glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(212,175,55,0.2); border-radius: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
         .menu-item { transition: all 0.3s ease; }
@@ -34,35 +37,37 @@ export default function Home() {
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .cta-pulse { animation: pulse 2s infinite; }
       `}</style>
 
-      {/* Luxury Fixed Menu */}
-      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(15,23,42,0.8)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(212,175,55,0.3)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#D4AF37' }}>Al-Irfan</h1>
-          <ul style={{ display: 'none', listStyle: 'none', margin: 0, padding: 0, gap: '2rem' }}>
+      {/* Premium Fixed Menu */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-amber-500/30">
+        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-amber-500">Al-Irfan</h1>
+          <ul className="hidden md:flex space-x-8">
             {['Home', 'About', 'Academics', 'Facilities', 'Admissions', 'Contact'].map((item) => (
               <li key={item} className="menu-item">
-                <button style={{ color: 'white', background: 'none', border: 'none', fontSize: '1.125rem', fontWeight: '500', cursor: 'pointer', position: 'relative' }}>
+                <button className="text-white hover:text-amber-500 transition text-lg font-medium relative group">
                   {item}
-                  <div style={{ position: 'absolute', bottom: 0, left: 0, width: 0, height: '0.125rem', background: '#D4AF37', transition: 'width 0.3s ease' }} />
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all duration-300" />
                 </button>
               </li>
             ))}
           </ul>
-          <button style={{ display: 'block', color: 'white', background: 'none', border: 'none', fontSize: '1.5rem' }} onClick={() => setMenuOpen(!menuOpen)}>
-            <i className="fas fa-bars"></i>
+          <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
+            <i className="fas fa-bars text-2xl"></i>
           </button>
         </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
       {menuOpen && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.95)', zIndex: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} onClick={() => setMenuOpen(false)}>
-          <ul style={{ listStyle: 'none', margin: 0, padding: 0, gap: '2rem', fontSize: '3rem', fontWeight: 'bold', color: '#D4AF37' }}>
+        <div className="fixed inset-0 bg-slate-900/95 z-40 flex flex-col items-center justify-center md:hidden" onClick={() => setMenuOpen(false)}>
+          <ul className="space-y-8 text-3xl font-bold text-amber-500">
             {['Home', 'About', 'Academics', 'Facilities', 'Admissions', 'Contact'].map((item) => (
               <li key={item}>
-                <button style={{ color: 'white', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMenuOpen(false)}>
+                <button className="text-white hover:text-amber-500" onClick={() => setMenuOpen(false)}>
                   {item}
                 </button>
               </li>
@@ -71,84 +76,79 @@ export default function Home() {
         </div>
       )}
 
-      {/* Hero */}
-      <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '5rem 1.5rem 0', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }} className="reveal active" style={{ animation: 'fadeInUp 1s ease-out' }}>
-          <h1 style={{ fontSize: 'clamp(3rem, 8vw, 9rem)', fontWeight: 900, color: 'white', margin: '0 0 1.5rem 0', lineHeight: 1.1 }}>
+      {/* Premium Hero */}
+      <section className="min-h-screen flex items-center justify-center text-center px-6 relative z-10 pt-20">
+        <div className="max-w-6xl reveal active" style={{ animation: 'fadeInUp 1s ease-out' }}>
+          <h1 className="text-7xl md:text-9xl font-black text-white leading-tight mb-6">
             ALIRFAN RESIDENTIAL SCHOOL
           </h1>
-          <p style={{ fontSize: 'clamp(1.5rem, 4vw, 4rem)', color: 'rgb(229,231,235)', margin: '0 0 1rem 0', fontWeight: 300 }}>
+          <p className="text-2xl md:text-4xl text-gray-200 mb-8 font-light">
             Unlocking Knowledge, Inspiring Growth
           </p>
-          <p style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)', color: 'rgb(209,213,219)', margin: '0 0 3rem 0', maxWidth: '4rem', lineHeight: 1.6 }}>
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
             Empower your child with a dynamic and engaging learning environment that fosters creativity and critical thinking.
           </p>
-          <a href="#enquiry" style={{ background: '#D4AF37', color: 'black', padding: '1.5rem 4rem', borderRadius: '50px', fontSize: 'clamp(1rem, 2vw, 2rem)', fontWeight: 'bold', textDecoration: 'none', transition: 'all 0.3s', boxShadow: '0 8px 32px rgba(212,175,55,0.3)' }}>
+          <a href="#enquiry" className="cta-pulse bg-amber-500 hover:bg-amber-400 text-black px-16 py-6 rounded-full text-2xl font-bold transition shadow-2xl inline-block">
             Discover More
           </a>
         </div>
       </section>
 
       {/* Leadership Insights */}
-      <section style={{ padding: '6rem 1.5rem', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '3rem 4rem', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 0.2s' }}>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 6rem)', fontWeight: 'bold', color: '#D4AF37', textAlign: 'center', margin: '0 0 3rem 0' }}>
+      <section className="py-24 px-6 relative z-10">
+        <div className="container mx-auto max-w-6xl glass rounded-3xl p-12 md:p-16 shadow-2xl reveal" style={{ animation: 'fadeInUp 1s ease-out 0.2s' }}>
+          <h2 className="text-5xl md:text-6xl font-bold text-amber-500 text-center mb-12">
             Leadership Insights
           </h2>
-          <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'rgb(209,213,219)', textAlign: 'center', margin: '0 0 3rem 0', maxWidth: '80ch' }}>
+          <p className="text-xl leading-relaxed text-gray-200 text-center mb-12 max-w-5xl mx-auto">
             The commitment, vision, and dedication that shape our school's journey. Discover their perspectives on our educational goals, the achievements of our students, and the values that guide us.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center' }}>
-            <img src="https://www.alirfanschool.com/images/secretary.jpg" alt="Secretary" style={{ borderRadius: '16px', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }} />
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <img src="https://www.alirfanschool.com/images/secretary.jpg" alt="Secretary" className="rounded-2xl shadow-2xl" />
             <div>
-              <p style={{ fontSize: '1.125rem', lineHeight: 1.6, color: 'rgb(209,213,219)', margin: '0 0 1.5rem 0' }}>
+              <p className="text-lg text-gray-300 mb-6">
                 "True education extends beyond books — it nurtures the soul, builds character, and prepares leaders for tomorrow."
               </p>
-              <p style={{ fontSize: '1.5rem', fontWeight: '600', color: '#D4AF37' }}>— Janab Secretary Saheb</p>
+              <p className="text-2xl font-semibold text-amber-500">— Janab Secretary Saheb</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* President's Note */}
-      <section style={{ padding: '6rem 1.5rem', background: 'rgba(15,23,42,0.5)', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '80ch', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 6rem)', fontWeight: 'bold', color: '#D4AF37', margin: '0 0 3rem 0' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 0.4s' }}>
-            President's Note
-          </h2>
-          <div style={{ gap: '2rem', display: 'grid' }}>
+      <section className="py-24 px-6 bg-slate-900/50 relative z-10">
+        <div className="container mx-auto max-w-5xl text-center">
+          <h2 className="text-5xl md:text-6xl font-bold text-amber-500 mb-12 reveal" style={{ animation: 'fadeInUp 1s ease-out 0.4s' }}>President's Note</h2>
+          <div className="space-y-8">
             {presidentNotes.map((note, i) => (
-              <div key={i} style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 0.6s' }}>
-                <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'rgb(209,213,219)', fontStyle: 'italic', margin: '0 0 1.5rem 0' }}>
+              <div key={i} className="glass rounded-3xl p-8 reveal" style={{ animation: 'fadeInUp 1s ease-out 0.6s' }}>
+                <p className="text-xl italic text-gray-200 leading-relaxed">
                   {note.quote}
                 </p>
-                <p style={{ fontSize: '1.5rem', fontWeight: '600', color: '#D4AF37' }}>{note.author}</p>
+                <p className="mt-6 text-2xl font-semibold text-amber-500">{note.author}</p>
               </div>
             ))}
           </div>
-          <a href="PresidentNote.aspx" style={{ color: '#D4AF37', textDecoration: 'none', fontSize: '1.25rem', marginTop: '2rem', display: 'inline-block' }}>Read Full Note →</a>
+          <a href="PresidentNote.aspx" className="text-amber-500 hover:underline text-xl mt-8 inline-block">Read Full Note →</a>
         </div>
       </section>
 
       {/* Key Features */}
-      <section style={{ padding: '6rem 1.5rem', position: 'relative', zIndex: 10 }}>
-        <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 7rem)', fontWeight: 'bold', textAlign: 'center', color: '#D4AF37', margin: '0 0 5rem 0' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 0.8s' }}>
-          Why Choose Al-Irfan?
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr)', gap: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+      <section className="py-24 px-6 relative z-10">
+        <h2 className="text-5xl md:text-7xl font-bold text-center text-amber-500 mb-20 reveal" style={{ animation: 'fadeInUp 1s ease-out 0.8s' }}>Why Choose Al-Irfan?</h2>
+        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {features.map((feature, i) => (
             <div
               key={i}
-              style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '2rem', cursor: 'pointer', transition: 'all 0.3s', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}
-              className="reveal"
+              className="glass p-8 rounded-3xl cursor-pointer hover:scale-105 transition reveal"
               style={{ animation: `fadeInUp 1s ease-out ${1 + i * 0.1}s` }}
               onClick={() => toggleFeature(i)}
             >
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#D4AF37', margin: '0 0 1rem 0' }}>{feature.title}</h3>
-              <ul style={{ color: 'rgb(209,213,219)', gap: '0.5rem', listStyle: 'none', padding: 0 }}>
+              <h3 className="text-2xl font-bold text-amber-500 mb-4">{feature.title}</h3>
+              <ul className="text-gray-300 space-y-2">
                 {feature.bullets.map((bullet, j) => (
-                  <li key={j} style={{ display: 'flex', alignItems: 'center' }}>
-                    <i style={{ color: '#D4AF37', marginRight: '0.5rem', fontSize: '1rem' }} className="fas fa-check"></i>
+                  <li key={j} className="flex items-center">
+                    <i className="fas fa-check text-amber-500 mr-2"></i>
                     {bullet}
                   </li>
                 ))}
@@ -159,32 +159,30 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="enquiry" style={{ padding: '6rem 1.5rem', background: 'rgba(6,95,70,0.5)', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 6rem)', fontWeight: 'bold', color: 'white', margin: '0 0 3rem 0' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 1.5s' }}>
-            Ready to Join Al-Irfan?
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '3rem', maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#D4AF37', margin: '0 0 1rem 0' }}>Admission Inquiries</h3>
-              <p><i style={{ color: '#D4AF37', marginRight: '0.5rem' }} className="fas fa-phone"></i>+91 9860 579 809</p>
-              <p><i style={{ color: '#D4AF37', marginRight: '0.5rem' }} className="fas fa-envelope"></i>mail@alirfanschool.com</p>
+      <section id="enquiry" className="py-24 px-6 bg-emerald-900/50 relative z-10">
+        <div className="container mx-auto max-w-6xl text-center">
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-12 reveal" style={{ animation: 'fadeInUp 1s ease-out 1.5s' }}>Ready to Join Al-Irfan?</h2>
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="glass rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-amber-500 mb-4">Admission Inquiries</h3>
+              <p><i className="fas fa-phone mr-2 text-amber-500"></i>+91 9860 579 809</p>
+              <p><i className="fas fa-envelope mr-2 text-amber-500"></i>mail@alirfanschool.com</p>
               <p>+91 8975 613 666 • +91 9923 203 933</p>
             </div>
-            <div style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#D4AF37', margin: '0 0 1rem 0' }}>School Hours & Location</h3>
+            <div className="glass rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-amber-500 mb-4">School Hours & Location</h3>
               <p>Every Day: 9:00 AM to 3:00 PM</p>
-              <p><i style={{ color: '#D4AF37', marginRight: '0.5rem' }} className="fas fa-map-marker-alt"></i>Khultabad, Maharashtra (IN)</p>
+              <p><i className="fas fa-map-marker-alt mr-2 text-amber-500"></i>Khultabad, Maharashtra (IN)</p>
             </div>
           </div>
-          <a href="enquiry.aspx" style={{ background: '#D4AF37', color: 'black', padding: '1.5rem 4rem', borderRadius: '50px', fontSize: 'clamp(1rem, 2vw, 2rem)', fontWeight: 'bold', textDecoration: 'none', transition: 'all 0.3s', boxShadow: '0 8px 32px rgba(212,175,55,0.3)' }}>
+          <a href="enquiry.aspx" className="bg-amber-500 hover:bg-amber-400 text-black px-20 py-6 rounded-full text-2xl font-bold transition shadow-2xl">
             Submit Enquiry Now
           </a>
         </div>
       </section>
 
-      <footer style={{ padding: '3rem 1.5rem', textAlign: 'center', background: 'rgba(15,23,42,0.5)' }}>
-        <p style={{ color: 'rgb(156,163,175)', margin: 0 }}>© 2026 Al-Irfan Residential School. All Rights Reserved.</p>
+      <footer className="py-12 px-6 text-center bg-slate-900/50">
+        <p className="text-gray-400">© 2026 Al-Irfan Residential School. All Rights Reserved.</p>
       </footer>
     </div>
   );
