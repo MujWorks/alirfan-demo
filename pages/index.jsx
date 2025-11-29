@@ -182,7 +182,7 @@ export default function Home() {
             "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80&fm=webp", // Modern classroom
             "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=1200&q=80&fm=webp", // Students studying
             "https://images.unsplash.com/photo-1629909613654-28aa89a4610e?w=1200&q=80&fm=webp", // Sports ground
-            "https://images.unsplash.com/photo-1519452635265-7b3c95e3c16d8?w=1200&q=80&fm=webp", // Library
+            "https://www.wesgreeninternationalschool-sharjah.com/-/media/project/gems/wgp_wesgreen_international_school_sharjah/_generic-content-images/faciltiies-2.jpg", // Library
             "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&q=80&fm=webp"  // Happy students
           ].map((src, i) => (
             <img 
