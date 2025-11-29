@@ -235,7 +235,7 @@ export default function Home() {
           <h2 style={{ fontSize:'4rem', color:'#d4af37', marginBottom:'4rem' }}>Leadership Insights</h2>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(500px, 1fr))', gap:'5rem', alignItems:'center' }}>
             <img 
-              src="https://www.alirfanschool.com/assets/presidentnoteImages/president.jpg" 
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtOziYdgFhdzpVdu2m_yM1aLtIy_8qAICjng&s" 
               alt="Leadership" 
               style={{ borderRadius:'24px', boxShadow:'0 25px 50px rgba(0,0,0,0.6)', width:'100%', height:'auto' }} 
             />
