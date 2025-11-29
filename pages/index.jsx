@@ -27,14 +27,14 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-900 text-white overflow-x-hidden">
-      <style jsx>{`
+      <style jsx global>{`
         .glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(212,175,55,0.2); }
         .menu-item { transition: all 0.3s; }
         .menu-item:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212,175,55,0.5); }
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         .gradient-bg { background: linear-gradient(to bottom, #0f172a, #065f46); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
 
       {/* Luxury Fixed Menu */}
