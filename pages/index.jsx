@@ -72,7 +72,7 @@ export default function Home() {
             ALIRFAN RESIDENTIAL SCHOOL
           </h1>
           <p className="text-2xl md:text-4xl text-gray-200 mb-8 font-light">
-            Unlocking Knowledge, Inspiring Growth
+            'Unlocking Knowledge, Inspiring Growth
           </p>
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
             Empower your child with a dynamic and engaging learning environment that fosters creativity and critical thinking.
