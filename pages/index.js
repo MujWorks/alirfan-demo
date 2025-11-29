@@ -36,8 +36,8 @@ export default function Home() {
   ];
 
   const presidentNotes = [
-    { author: "Mr. Mujtaba Farooq", title: "President", quote: "Human Being is the Viceregent of Almighty Allah. The reason behind this honor is that he has been equipped with knowledge. In broader perspective, this knowledge can be considered..." },
-    { author: "Mohammad Khalid", title: "Principal", quote: "Education & Knowledge are rightly called the 'Third Eye' of Human Being. It gives him an insight into all affairs of life, removes all the darkness and spreads illumination..." }
+    { quote: "Human Being is the Viceregent of Almighty Allah. The reason behind this honor is that he has been equipped with knowledge. In broader perspective, this knowledge can be considered...", author: "President" },
+    { quote: "Education & Knowledge are rightly called the 'Third Eye' of Human Being. It gives him an insight into all affairs of life, removes all the darkness and spreads illumination...", author: "Principal" }
   ];
 
   return (
@@ -121,7 +121,7 @@ export default function Home() {
               <p className="text-xl italic text-gray-200 leading-relaxed">
                 {note.quote}
               </p>
-              <p className="mt-6 text-2xl font-semibold text-amber-500">{note.author}, {note.title}</p>
+              <p className="mt-6 text-2xl font-semibold text-amber-500">{note.author}</p>
             </motion.div>
           ))}
           <a href="PresidentNote.aspx" className="text-amber-500 hover:underline text-xl">Read Full Note →</a>
