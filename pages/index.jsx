@@ -1,161 +1,164 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [expandedFeature, setExpandedFeature] = useState(null);
-  const [currentNote, setCurrentNote] = useState(0);
-
-  const nextNote = () => setCurrentNote((prev) => (prev + 1) % presidentNotes.length);
-
-  const toggleFeature = (index) => {
-    setExpandedFeature(expandedFeature === index ? null : index);
-  };
-
-  const features = [
-    { title: "Academic Facilities", bullets: ["Smart Class Rooms", "Laboratories"] },
-    { title: "Computer Education", bullets: ["Labs", "Khan Academy"] },
-    { title: "Academic Support", bullets: ["Regular Test Series", "Excellence Batch"] },
-    { title: "Learning Resources", bullets: ["Library", "Subject-based Clubs"] },
-    { title: "Competitions and Events", bullets: ["Olympiads & Competitions", "Annual Gathering"] },
-    { title: "Cultural and Social Activities", bullets: ["Assembly", "Co-Curricular Activities"] },
-    { title: "Physical Education", bullets: ["Sports", "Judo"] },
-    { title: "Environmental Learning", bullets: ["\"Al Hamra\" Garden", "Educational Tours"] },
-    { title: "Religious Studies", bullets: ["Islamic Environment", "Cultural Studies"] }
-  ];
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const presidentNotes = [
-    { quote: "Human Being is the Viceregent of Almighty Allah. The reason behind this honor is that he has been equipped with knowledge. In broader perspective, this knowledge can be considered...", author: "Mr. Mujtaba Farooq, President" },
-    { quote: "Education & Knowledge are rightly called the 'Third Eye' of Human Being. It gives him an insight into all affairs of life, removes all the darkness and spreads illumination...", author: "Mohammad Khalid, Principal" }
+    {
+      "Human Being is the Viceregent of Almighty Allah. The reason behind this honor is that he has been equipped with knowledge. In broader perspective, this knowledge can be considered as the light that removes darkness of ignorance…",
+    "Education & Knowledge are rightly called the 'Third Eye' of Human Being. It gives him an insight into all affairs of life, removes all the darkness and spreads illumination…",
   ];
 
+  const authors = ["Mr. Mujtaba Farooq, President", "Mohammad Khalid, Principal"];
+
+  const features = [
+    { title: "Academic Facilities",          bullets: ["Smart Class Rooms", "Science & Computer Labs"] },
+    { title: "Islamic Environment",          bullets: ["Daily Prayers", "Qur’an & Hifz Classes"] },
+    { title: "Boarding & Hostel",            bullets: ["Separate Boys & Girls Hostels", "24×7 Care"] },
+    { title: "Sports & Activities",          bullets: ["Cricket, Football, Judo", "Annual Sports Day"] },
+    { title: "Modern Learning",              bullets: ["Khan Academy", "Digital Library"] },
+    { title: "Co-Curricular Excellence",     bullets: ["Debate, Drama, Art", "Olympiads & Competitions"] },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % presidentNotes.length);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #0f172a, #065f46)', color: 'white', overflowX: 'hidden', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#0a1a2f', color: 'white', fontFamily: "'Inter', sans-serif", overflowX: 'hidden' }}>
       <style jsx global>{`
-        .glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(212,175,55,0.2); border-radius: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-        .menu-item { transition: all 0.3s ease; }
-        .menu-item:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(212,175,55,0.5); }
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .cta-pulse { animation: pulse 2s infinite; }
+        .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(212,175,55,0.3); border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .gold { color: #d4af37; }
+        .btn-gold { 
+          background: linear-gradient(45deg, #d4af37, #f9e79f); 
+          color: #000; 
+          padding: 16px 48px; 
+          border-radius: 50px; 
+          font-weight: bold; 
+          font-size: 1.3rem;
+          transition: all 0.4s; 
+          box-shadow: 0 10px 30px rgba(212,175,55,0.4); 
+          text-decoration: none;
+          display: inline-block;
+        }
+        .btn-gold:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(212,175,55,0.6); }
+        @keyframes fadeInUp { from { opacity:0; transform:translateY(40px); } to { opacity:1; transform:translateY(0); } }
+        .animate { animation: fadeInUp 1.2s ease-out forwards; }
       `}</style>
 
-      {/* Premium Fixed Menu */}
-      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(15,23,42,0.8)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(212,175,55,0.3)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#D4AF37' }}>Al-Irfan</h1>
-          <ul style={{ display: 'none', listStyle: 'none', margin: 0, padding: 0, gap: '2rem' }}>
-            {['Home', 'About', 'Academics', 'Facilities', 'Admissions', 'Contact'].map((item) => (
-              <li key={item} className="menu-item">
-                <button style={{ color: 'white', background: 'none', border: 'none', fontSize: '1.125rem', fontWeight: '500', cursor: 'pointer', position: 'relative' }}>
-                  {item}
-                  <div style={{ position: 'absolute', bottom: 0, left: 0, width: 0, height: '0.125rem', background: '#D4AF37', transition: 'width 0.3s ease' }} />
-                </button>
-              </li>
-            ))}
-          </ul>
-          <button style={{ display: 'block', color: 'white', background: 'none', border: 'none', fontSize: '1.5rem' }} onClick={() => setMenuOpen(!menuOpen)}>
-            <i className="fas fa-bars"></i>
+      {/* Navigation */}
+      <nav style={{ position:'fixed', top:0, left:0, right:0, zIndex:999, background:'rgba(10,26,47,0.95)', backdropFilter:'blur(15px)', borderBottom:'1px solid rgba(212,175,55,0.3)' }}>
+        <div style={{ maxWidth:'1400px', margin:'0 auto', padding:'1.2rem 2rem', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+          <h1 style={{ fontSize:'2.2rem', fontWeight:'bold', color:'#d4af37' }}>Al-Irfan</h1>
+          <button onClick={() => setMenuOpen(!menuOpen)} style={{ color:'white', fontSize:'2rem', background:'none', border:'none', cursor:'pointer' }}>
+            Menu
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       {menuOpen && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.95)', zIndex: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} onClick={() => setMenuOpen(false)}>
-          <ul style={{ listStyle: 'none', margin: 0, padding: 0, gap: '2rem', fontSize: '3rem', fontWeight: 'bold', color: '#D4AF37' }}>
-            {['Home', 'About', 'Academics', 'Facilities', 'Admissions', 'Contact'].map((item) => (
-              <li key={item}>
-                <button style={{ color: 'white', background: 'none', border: 'none', cursor: 'pointer' }} onClick={() => setMenuOpen(false)}>
-                  {item}
-                </button>
-              </li>
+        <div onClick={() => setMenuOpen(false)} style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.98)', zIndex:998, display:'flex', alignItems:'center', justifyContent:'center' }}>
+          <div style={{ textAlign:'center' }}>
+            ['Home','About','Academics','Facilities','Admissions','Contact'].map(item => (
+              <div key={item} style={{ margin:'2rem 0' }}>
+                <a href="#" style={{ color:'#d4af37', textDecoration:'none', fontSize:'3rem', fontWeight:'bold' }}>{item}</a>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
 
-      {/* Premium Hero */}
-      <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '5rem 1.5rem 0', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }} className="reveal active" style={{ animation: 'fadeInUp 1s ease-out' }}>
-          <h1 style={{ fontSize: 'clamp(3rem, 8vw, 9rem)', fontWeight: 900, color: 'white', margin: '0 0 1.5rem 0', lineHeight: 1.1 }}>
+      {/* Hero with YouTube Background */}
+      <section style={{ height:'100vh', position:'relative', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center' }}>
+        <div style={{ position:'absolute', inset:0, overflow:'hidden' }}>
+          <iframe
+            src="https://www.youtube.com/embed/AhGFGa-3FU8?autoplay=1&mute=1&loop=1&playlist=AhGFGa-3FU8&controls=0&modestbranding=1&rel=0"
+            style={{ width:'100%', height:'100%', border:'none' }}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          ></iframe>
+          <div style={{ position:'absolute', inset:0, background:'linear-gradient(180deg, rgba(10,26,47,0.75) 0%, rgba(10,26,47,0.95) 100%)' }}></div>
+        </div>
+
+        <div style={{ position:'relative', zIndex:2, maxWidth:'1000px', padding:'0 2rem' }} className="animate">
+          <h1 style={{ fontSize:'clamp(3.5rem,9vw,8rem)', fontWeight:'900', margin:'0 0 1rem 0', lineHeight:'1.1' }}>
             ALIRFAN RESIDENTIAL SCHOOL
           </h1>
-          <p style={{ fontSize: 'clamp(1.5rem, 4vw, 4rem)', color: 'rgb(229,231,235)', margin: '0 0 1rem 0', fontWeight: 300 }}>
-            Unlocking Knowledge, Inspiring Growth
+          <p style={{ fontSize:'clamp(1.6rem,5vw,3.2rem)', margin:'0 0 1.5rem 0', color:'#e2e8f0' }}>
+            Unlocking Knowledge • Inspiring Growth
           </p>
-          <p style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)', color: 'rgb(209,213,219)', margin: '0 0 3rem 0', maxWidth: '4rem', lineHeight: 1.6 }}>
-            Empower your child with a dynamic and engaging learning environment that fosters creativity and critical thinking.
+          <p style={{ fontSize:'1.4rem', maxWidth:'750px', margin:'0 auto 3.5rem', color:'#cbd5e1', lineHeight:'1.7' }}>
+            Empowering young minds with academic excellence and strong Islamic values in a safe, modern residential campus.
           </p>
-          <a href="#enquiry" style={{ background: '#D4AF37', color: 'black', padding: '1.5rem 4rem', borderRadius: '50px', fontSize: 'clamp(1rem, 2vw, 2rem)', fontWeight: 'bold', textDecoration: 'none', transition: 'all 0.3s', boxShadow: '0 8px 32px rgba(212,175,55,0.3)', animation: 'pulse 2s infinite' }}>
-            Discover More
+          <a href="#enquiry" className="btn-gold">
+            ENROLL YOUR CHILD TODAY
           </a>
         </div>
       </section>
 
-      {/* Leadership Insights */}
-      <section style={{ padding: '6rem 1.5rem', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '3rem 4rem', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 0.2s' }}>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 6rem)', fontWeight: 'bold', color: '#D4AF37', textAlign: 'center', margin: '0 0 3rem 0' }}>
-            Leadership Insights
-          </h2>
-          <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'rgb(209,213,219)', textAlign: 'center', margin: '0 0 3rem 0', maxWidth: '80ch' }}>
-            The commitment, vision, and dedication that shape our school's journey. Discover their perspectives on our educational goals, the achievements of our students, and the values that guide us.
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center' }}>
-            <img src="https://www.alirfanschool.com/images/secretary.jpg" alt="Secretary" style={{ borderRadius: '16px', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }} />
-            <div>
-              <p style={{ fontSize: '1.125rem', lineHeight: 1.6, color: 'rgb(209,213,219)', margin: '0 0 1.5rem 0' }}>
+      {/* Leadership Section */}
+      <section style={{ padding:'120px 5%', background:'linear-gradient(to bottom, #0a1a2f, #03102a)' }}>
+        <div style={{ maxWidth:'1300px', margin:'0 auto', textAlign:'center' }}>
+          <h2 style={{ fontSize:'4rem', color:'#d4af37', marginBottom:'4rem' }}>Leadership Insights</h2>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(500px, 1fr))', gap:'5rem', alignItems:'center' }}>
+            <img src="https://images.unsplash.com/photo-1577896851226-c4d38a6e9e86?w=900&q=80" alt="Leadership" style={{ borderRadius:'24px', boxShadow:'0 25px 50px rgba(0,0,0,0.6)' }} />
+            <div style={{ textAlign:'left' }}>
+              <p style={{ fontSize:'1.6rem', lineHeight:'2.4rem', color:'#e2e8f0', fontStyle:'italic' }}>
                 "True education extends beyond books — it nurtures the soul, builds character, and prepares leaders for tomorrow."
               </p>
-              <p style={{ fontSize: '1.5rem', fontWeight: '600', color: '#D4AF37' }}>— Janab Secretary Saheb</p>
+              <p style={{ fontSize:'1.8rem', color:'#d4af37', marginTop:'3rem', fontWeight:'bold' }}>
+                — Janab Secretary Saheb
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* President's Note */}
-      <section style={{ padding: '6rem 1.5rem', background: 'rgba(15,23,42,0.5)', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '80ch', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 6rem)', fontWeight: 'bold', color: '#D4AF37', margin: '0 0 3rem 0' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 0.4s' }}>
-            President's Note
-          </h2>
-          <div style={{ gap: '2rem', display: 'grid' }}>
-            {presidentNotes.map((note, i) => (
-              <div key={i} style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 0.6s' }}>
-                <p style={{ fontSize: '1.25rem', lineHeight: 1.6, color: 'rgb(209,213,219)', fontStyle: 'italic', margin: '0 0 1.5rem 0' }}>
-                  {note.quote}
+      {/* President's Message Carousel */}
+      <section style={{ padding:'120px 5%', background:'#03102a' }}>
+        <div style={{ maxWidth:'1000px', margin:'0 auto', textAlign:'center' }}>
+          <h2 style={{ fontSize:'4rem', color:'#d4af37', marginBottom:'5rem' }}>President's Message</h2>
+          <div className="glass" style={{ padding:'3rem', minHeight:'320px', position:'relative', overflow:'hidden' }}>
+            {presidentNotes.map((text, i) => (
+              <div
+                key={i}
+                style={{
+                  position: i === currentSlide ? 'relative' : 'absolute',
+                  top:0, left:0, width:'100%',
+                  opacity: i === currentSlide ? 1 : 0,
+                  transform: i === currentSlide ? 'translateY(0)' : 'translateY(30px)',
+                  transition:'all 1s ease',
+                }}
+              >
+                <p style={{ fontSize:'1.7rem', lineHeight:'2.6rem', color:'#e2e8f0', fontStyle:'italic' }}>
+                  {text}
                 </p>
-                <p style={{ fontSize: '1.5rem', fontWeight: '600', color: '#D4AF37' }}>{note.author}</p>
+                <p style={{ marginTop:'3rem', fontSize:'1.8rem', color:'#d4af37', fontWeight:'bold' }}>
+                  {authors[i]}
+                </p>
               </div>
             ))}
           </div>
-          <a href="PresidentNote.aspx" style={{ color: '#D4AF37', textDecoration: 'none', fontSize: '1.25rem', marginTop: '2rem', display: 'inline-block' }}>Read Full Note →</a>
         </div>
       </section>
 
-      {/* Key Features */}
-      <section style={{ padding: '6rem 1.5rem', position: 'relative', zIndex: 10 }}>
-        <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 7rem)', fontWeight: 'bold', textAlign: 'center', color: '#D4AF37', margin: '0 0 5rem 0' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 0.8s' }}>
+      {/* Features Grid */}
+      <section style={{ padding:'120px 5%', background:'linear-gradient(to top, #0a1a2f, #03102a)' }}>
+        <h2 style={{ textAlign:'center', fontSize:'4.2rem', color:'#d4af37', marginBottom:'6rem' }}>
           Why Choose Al-Irfan?
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr)', gap: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-          {features.map((feature, i) => (
-            <div
-              key={i}
-              style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '2rem', cursor: 'pointer', transition: 'all 0.3s', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}
-              className="reveal"
-              style={{ animation: `fadeInUp 1s ease-out ${1 + i * 0.1}s` }}
-              onClick={() => toggleFeature(i)}
-            >
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#D4AF37', margin: '0 0 1rem 0' }}>{feature.title}</h3>
-              <ul style={{ color: 'rgb(209,213,219)', gap: '0.5rem', listStyle: 'none', padding: 0 }}>
-                {feature.bullets.map((bullet, j) => (
-                  <li key={j} style={{ display: 'flex', alignItems: 'center' }}>
-                    <i style={{ color: '#D4AF37', marginRight: '0.5rem', fontSize: '1rem' }} className="fas fa-check"></i>
-                    {bullet}
-                  </li>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(340px, 1fr))', gap:'3rem', maxWidth:'1400px', margin:'0 auto' }}>
+          {features.map((f, i) => (
+            <div key={i} className="glass" style={{ padding:'3rem', transition:'transform 0.4s' }} onMouseEnter={e=>e.currentTarget.style.transform='translateY(-20px)'} onMouseLeave={e=>e.currentTarget.style.transform='translateY(0)'}>
+              <h3 style={{ fontSize:'2rem', color:'#d4af37', marginBottom:'2rem' }}>{f.title}</h3>
+              <ul style={{ paddingLeft:'1.8rem', color:'#cbd5e1', fontSize:'1.2rem' }}>
+                {f.bullets.map((b, j) => (
+                  <li key={j} style={{ margin:'1rem 0' }}>Checkmark {b}</li>
                 ))}
               </ul>
             </div>
@@ -163,33 +166,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="enquiry" style={{ padding: '6rem 1.5rem', background: 'rgba(6,95,70,0.5)', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 6rem)', fontWeight: 'bold', color: 'white', margin: '0 0 3rem 0' }} className="reveal" style={{ animation: 'fadeInUp 1s ease-out 1.5s' }}>
-            Ready to Join Al-Irfan?
+      {/* Gallery */}
+      <section style={{ padding:'120px 5%', background:'#0a1a2f' }}>
+        <h2 style={{ textAlign:'center', fontSize:'4rem', color:'#d4af37', marginBottom:'5rem' }}>Campus Life</h2>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(320px, 1fr))', gap:'2.5rem', maxWidth:'1400px', margin:'0 auto' }}>
+          {[
+            "https://images.unsplash.com/photo-1522202176988-66273c2b0114?w=800&q=80",
+            "https://images.unsplash.com/photo-1491841573634-28140fc7ced7?w=800&q=80",
+            "https://images.unsplash.com/photo-1588072432690-b0c4969c0e44?w=800&q=80",
+            "https://images.unsplash.com/photo-1519452635265-7b3c95e3c16d8?w=800&q=80",
+            "https://images.unsplash.com/photo-1519455953755-93e9f4f9c678?w=800&q=80",
+            "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+          ].map((src, i) => (
+            <img key={i} src={src} alt="Campus" style={{ borderRadius:'24px', width:'100%', height:'340px', objectFit:'cover', boxShadow:'0 20px 40px rgba(0,0,0,0.6)' }} />
+          ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="enquiry" style={{ padding:'140px 5%', background:'linear-gradient(to bottom, #03102a, #000)' }}>
+        <div style={{ maxWidth:'1100px', margin:'0 auto', textAlign:'center' }}>
+          <h2 style={{ fontSize:'4.5rem', color:'#d4af37', marginBottom:'2rem' }}>
+            Ready to Join the Al-Irfan Family?
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '3rem', maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#D4AF37', margin: '0 0 1rem 0' }}>Admission Inquiries</h3>
-              <p><i style={{ color: '#D4AF37', marginRight: '0.5rem' }} className="fas fa-phone"></i>+91 9860 579 809</p>
-              <p><i style={{ color: '#D4AF37', marginRight: '0.5rem' }} className="fas fa-envelope"></i>mail@alirfanschool.com</p>
-              <p>+91 8975 613 666 • +91 9923 203 933</p>
+          <p style={{ fontSize:'1.6rem', color:'#e2e8f0', marginBottom:'5rem' }}>
+            Limited seats available • Secure your child’s future today
+          </p>
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'4rem', marginBottom:'5rem' }}>
+            <div className="glass" style={{ padding:'3rem' }}>
+              <h3 style={{ color:'#d4af37', fontSize:'2rem', marginBottom:'1.5rem' }}>Admission Office</h3>
+              <p style={{ fontSize:'1.3rem', margin:'0.8rem 0' }}>+91 9860 579 809</p>
+              <p style={{ fontSize:'1.3rem', margin:'0.8rem 0' }}>+91 8975 613 666</p>
+              <p style={{ fontSize:'1.3rem', margin:'0.8rem 0' }}>+91 9923 203 933</p>
+              <p style={{ marginTop:'1.5rem', fontSize:'1.3rem' }}>mail@alirfanschool.com</p>
             </div>
-            <div style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(20px)', border: '1px solid rgba(212,175,55,0.2)', borderRadius: '24px', padding: '2rem', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#D4AF37', margin: '0 0 1rem 0' }}>School Hours & Location</h3>
-              <p>Every Day: 9:00 AM to 3:00 PM</p>
-              <p><i style={{ color: '#D4AF37', marginRight: '0.5rem' }} className="fas fa-map-marker-alt"></i>Khultabad, Maharashtra (IN)</p>
+            <div className="glass" style={{ padding:'3rem' }}>
+              <h3 style={{ color:'#d4af37', fontSize:'2rem', marginBottom:'1.5rem' }}>Visit Us</h3>
+              <p style={{ fontSize:'1.3rem' }}>Every Day: 9:00 AM – 3:00 PM</p>
+              <p style={{ marginTop:'1.5rem', fontSize:'1.3rem' }}>Khultabad, Maharashtra (India)</p>
             </div>
           </div>
-          <a href="enquiry.aspx" style={{ background: '#D4AF37', color: 'black', padding: '1.5rem 4rem', borderRadius: '50px', fontSize: 'clamp(1rem, 2vw, 2rem)', fontWeight: 'bold', textDecoration: 'none', transition: 'all 0.3s', boxShadow: '0 8px 32px rgba(212,175,55,0.3)', animation: 'pulse 2s infinite' }}>
-            Submit Enquiry Now
+          <a href="enquiry.aspx" className="btn-gold">
+            SUBMIT ENQUIRY NOW
           </a>
         </div>
       </section>
 
-      <footer style={{ padding: '3rem 1.5rem', textAlign: 'center', background: 'rgba(15,23,42,0.5)' }}>
-        <p style={{ color: 'rgb(156,163,175)', margin: 0 }}>© 2026 Al-Irfan Residential School. All Rights Reserved.</p>
+      <footer style={{ padding:'4rem', textAlign:'center', background:'#000', color:'#777', fontSize:'1.1rem' }}>
+        <p>© 2025–2026 Al-Irfan Residential School • All Rights Reserved</p>
       </footer>
     </div>
   );
