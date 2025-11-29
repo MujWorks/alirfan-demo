@@ -6,11 +6,14 @@ export default function Home() {
 
   const presidentNotes = [
     {
-      "Human Being is the Viceregent of Almighty Allah. The reason behind this honor is that he has been equipped with knowledge. In broader perspective, this knowledge can be considered as the light that removes darkness of ignorance…",
-    "Education & Knowledge are rightly called the 'Third Eye' of Human Being. It gives him an insight into all affairs of life, removes all the darkness and spreads illumination…",
+      quote: "Human Being is the Viceregent of Almighty Allah. The reason behind this honor is that he has been equipped with knowledge. In broader perspective, this knowledge can be considered as the light that removes darkness of ignorance…",
+      author: "Mr. Mujtaba Farooq, President"
+    },
+    {
+      quote: "Education & Knowledge are rightly called the 'Third Eye' of Human Being. It gives him an insight into all affairs of life, removes all the darkness and spreads illumination…",
+      author: "Mohammad Khalid, Principal"
+    }
   ];
-
-  const authors = ["Mr. Mujtaba Farooq, President", "Mohammad Khalid, Principal"];
 
   const features = [
     { title: "Academic Facilities",          bullets: ["Smart Class Rooms", "Science & Computer Labs"] },
@@ -18,7 +21,7 @@ export default function Home() {
     { title: "Boarding & Hostel",            bullets: ["Separate Boys & Girls Hostels", "24×7 Care"] },
     { title: "Sports & Activities",          bullets: ["Cricket, Football, Judo", "Annual Sports Day"] },
     { title: "Modern Learning",              bullets: ["Khan Academy", "Digital Library"] },
-    { title: "Co-Curricular Excellence",     bullets: ["Debate, Drama, Art", "Olympiads & Competitions"] },
+    { title: "Co-Curricular Excellence",     bullets: ["Debate, Drama, Art", "Olympiads & Competitions"] }
   ];
 
   useEffect(() => {
@@ -29,7 +32,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a1a2f', color: 'white', fontFamily: "'Inter', sans-serif", overflowX: 'hidden' }}>
+    <div style={{ minHeight: '100vh', background: '#0a1a2f', color: 'white', fontFamily: 'Inter, sans-serif', overflowX: 'hidden' }}>
       <style jsx global>{`
         .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(212,175,55,0.3); border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .gold { color: #d4af37; }
@@ -64,7 +67,7 @@ export default function Home() {
       {menuOpen && (
         <div onClick={() => setMenuOpen(false)} style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.98)', zIndex:998, display:'flex', alignItems:'center', justifyContent:'center' }}>
           <div style={{ textAlign:'center' }}>
-            ['Home','About','Academics','Facilities','Admissions','Contact'].map(item => (
+            {['Home','About','Academics','Facilities','Admissions','Contact'].map(item => (
               <div key={item} style={{ margin:'2rem 0' }}>
                 <a href="#" style={{ color:'#d4af37', textDecoration:'none', fontSize:'3rem', fontWeight:'bold' }}>{item}</a>
               </div>
@@ -124,7 +127,7 @@ export default function Home() {
         <div style={{ maxWidth:'1000px', margin:'0 auto', textAlign:'center' }}>
           <h2 style={{ fontSize:'4rem', color:'#d4af37', marginBottom:'5rem' }}>President's Message</h2>
           <div className="glass" style={{ padding:'3rem', minHeight:'320px', position:'relative', overflow:'hidden' }}>
-            {presidentNotes.map((text, i) => (
+            {presidentNotes.map((note, i) => (
               <div
                 key={i}
                 style={{
@@ -136,10 +139,10 @@ export default function Home() {
                 }}
               >
                 <p style={{ fontSize:'1.7rem', lineHeight:'2.6rem', color:'#e2e8f0', fontStyle:'italic' }}>
-                  {text}
+                  {note.quote}
                 </p>
                 <p style={{ marginTop:'3rem', fontSize:'1.8rem', color:'#d4af37', fontWeight:'bold' }}>
-                  {authors[i]}
+                  {note.author}
                 </p>
               </div>
             ))}
@@ -158,7 +161,7 @@ export default function Home() {
               <h3 style={{ fontSize:'2rem', color:'#d4af37', marginBottom:'2rem' }}>{f.title}</h3>
               <ul style={{ paddingLeft:'1.8rem', color:'#cbd5e1', fontSize:'1.2rem' }}>
                 {f.bullets.map((b, j) => (
-                  <li key={j} style={{ margin:'1rem 0' }}>Checkmark {b}</li>
+                  <li key={j} style={{ margin:'1rem 0' }}>{b}</li>
                 ))}
               </ul>
             </div>
@@ -213,7 +216,7 @@ export default function Home() {
       </section>
 
       <footer style={{ padding:'4rem', textAlign:'center', background:'#000', color:'#777', fontSize:'1.1rem' }}>
-        <p>© 2025–2026 Al-Irfan Residential School • All Rights Reserved</p>
+        <p>© 2024–2025 Al-Irfan Residential School • All Rights Reserved</p>
       </footer>
     </div>
   );
