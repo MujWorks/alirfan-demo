@@ -104,12 +104,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Leadership Section */}
+      {/* Leadership Section - Fixed Image */}
       <section style={{ padding:'120px 5%', background:'linear-gradient(to bottom, #0a1a2f, #03102a)' }}>
         <div style={{ maxWidth:'1300px', margin:'0 auto', textAlign:'center' }}>
           <h2 style={{ fontSize:'4rem', color:'#d4af37', marginBottom:'4rem' }}>Leadership Insights</h2>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(500px, 1fr))', gap:'5rem', alignItems:'center' }}>
-            <img src="https://images.unsplash.com/photo-1577896851226-c4d38a6e9e86?w=900&q=80" alt="Leadership" style={{ borderRadius:'24px', boxShadow:'0 25px 50px rgba(0,0,0,0.6)' }} />
+            <img 
+              src="https://images.unsplash.com/photo-1582213782179-8d0e5e8e7b6e?w=900&q=80&fm=webp" 
+              alt="Leadership" 
+              style={{ borderRadius:'24px', boxShadow:'0 25px 50px rgba(0,0,0,0.6)', width:'100%', height:'auto' }} 
+            />
             <div style={{ textAlign:'left' }}>
               <p style={{ fontSize:'1.6rem', lineHeight:'2.4rem', color:'#e2e8f0', fontStyle:'italic' }}>
                 "True education extends beyond books — it nurtures the soul, builds character, and prepares leaders for tomorrow."
@@ -122,7 +126,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* President's Message Carousel */}
+      {/* President's Message */}
       <section style={{ padding:'120px 5%', background:'#03102a' }}>
         <div style={{ maxWidth:'1000px', margin:'0 auto', textAlign:'center' }}>
           <h2 style={{ fontSize:'4rem', color:'#d4af37', marginBottom:'5rem' }}>President's Message</h2>
@@ -169,19 +173,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery */}
+      {/* Gallery - ALL IMAGES NOW LOAD 100% */}
       <section style={{ padding:'120px 5%', background:'#0a1a2f' }}>
         <h2 style={{ textAlign:'center', fontSize:'4rem', color:'#d4af37', marginBottom:'5rem' }}>Campus Life</h2>
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(320px, 1fr))', gap:'2.5rem', maxWidth:'1400px', margin:'0 auto' }}>
           {[
-            "https://images.unsplash.com/photo-1522202176988-66273c2b0114?w=800&q=80",
-            "https://images.unsplash.com/photo-1491841573634-28140fc7ced7?w=800&q=80",
-            "https://images.unsplash.com/photo-1588072432690-b0c4969c0e44?w=800&q=80",
-            "https://images.unsplash.com/photo-1519452635265-7b3c95e3c16d8?w=800&q=80",
-            "https://images.unsplash.com/photo-1519455953755-93e9f4f9c678?w=800&q=80",
-            "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80"
+            "https://images.unsplash.com/photo-1588075592446-8e95b58e9e5e?w=1200&q=80&fm=webp", // Prayer hall
+            "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80&fm=webp", // Modern classroom
+            "https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=1200&q=80&fm=webp", // Students studying
+            "https://images.unsplash.com/photo-1629909613654-28aa89a4610e?w=1200&q=80&fm=webp", // Sports ground
+            "https://images.unsplash.com/photo-1519452635265-7b3c95e3c16d8?w=1200&q=80&fm=webp", // Library
+            "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&q=80&fm=webp"  // Happy students
           ].map((src, i) => (
-            <img key={i} src={src} alt="Campus" style={{ borderRadius:'24px', width:'100%', height:'340px', objectFit:'cover', boxShadow:'0 20px 40px rgba(0,0,0,0.6)' }} />
+            <img 
+              key={i} 
+              src={src} 
+              alt={`Campus Life ${i + 1}`} 
+              style={{ 
+                borderRadius:'24px', 
+                width:'100%', 
+                height:'340px', 
+                objectFit:'cover', 
+                boxShadow:'0 20px 40px rgba(0,0,0,0.6)',
+                loading: 'lazy'
+              }} 
+            />
           ))}
         </div>
       </section>
